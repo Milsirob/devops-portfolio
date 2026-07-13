@@ -31,66 +31,64 @@ const experience = [
   <Header />
 
   <main>
-    <section class="mx-auto flex min-h-[88vh] max-w-6xl items-center px-6 py-20">
-      <div class="max-w-5xl">
-        <p class="mb-5 font-mono text-lg text-cyan-400">
-          $ whoami
-        </p>
+    <section class="hero" id="about">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="terminal-command">$ whoami</p>
 
-        <h1 class="text-5xl font-bold tracking-tight text-white md:text-7xl">
-          Infrastructure and
-          <span class="block text-cyan-400">DevOps Engineer</span>
-        </h1>
+      <h1>
+        Infrastructure and
+        <span>DevOps Engineer</span>
+      </h1>
 
-        <p class="mt-8 max-w-3xl text-xl leading-9 text-slate-300">
-          I design, automate and operate cloud infrastructure using AWS,
-          Kubernetes, Terraform, GitHub Actions and Go.
-        </p>
+      <p class="hero-description">
+        I design, automate, and operate cloud infrastructure using AWS,
+        Kubernetes, Terraform, GitHub Actions, and Go.
+      </p>
 
-        <div class="mt-10 flex flex-wrap gap-4">
-          <a
-            href="/projects"
-            class="rounded-lg bg-cyan-400 px-6 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300"
-          >
-            View projects
-          </a>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#projects">
+          View projects
+        </a>
 
-          <a
-            href="/resume.pdf"
-            class="rounded-lg border border-slate-600 px-6 py-3 font-semibold text-white transition hover:border-cyan-400 hover:text-cyan-400"
-          >
-            Download résumé
-          </a>
+        <a class="button button-secondary" href="/resume.pdf" download>
+          Download résumé
+        </a>
 
-          <a
-            href="https://github.com/borislim2"
-            target="_blank"
-            rel="noreferrer"
-            class="rounded-lg border border-slate-600 px-6 py-3 font-semibold text-white transition hover:border-cyan-400 hover:text-cyan-400"
-          >
-            GitHub
-          </a>
-        </div>
-
-        <div class="mt-14 overflow-hidden rounded-xl border border-slate-800 bg-slate-950 shadow-2xl">
-          <div class="flex items-center gap-2 border-b border-slate-800 px-4 py-3">
-            <span class="h-3 w-3 rounded-full bg-red-400"></span>
-            <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
-            <span class="h-3 w-3 rounded-full bg-green-400"></span>
-          </div>
-
-          <div class="space-y-3 p-6 font-mono text-sm md:text-base">
-            <p><span class="text-cyan-400">$</span> cat profile.yaml</p>
-            <p class="text-slate-400">role: Infrastructure / DevOps Engineer</p>
-            <p class="text-slate-400">cloud: AWS</p>
-            <p class="text-slate-400">containers: Kubernetes, Docker</p>
-            <p class="text-slate-400">iac: Terraform</p>
-            <p class="text-slate-400">cicd: GitHub Actions</p>
-            <p class="text-slate-400">languages: Go, Bash, Python</p>
-          </div>
-        </div>
+        <a
+          class="button button-secondary"
+          href="https://github.com/borislim2"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+        </a>
       </div>
-    </section>
+    </div>
+
+    <div class="terminal-window">
+      <div class="terminal-header">
+        <span class="terminal-dot red"></span>
+        <span class="terminal-dot yellow"></span>
+        <span class="terminal-dot green"></span>
+      </div>
+
+      <div class="terminal-body">
+        <p>
+          <span class="terminal-symbol">$</span>
+          cat profile.yaml
+        </p>
+
+        <p><span>role:</span> Infrastructure / DevOps Engineer</p>
+        <p><span>cloud:</span> AWS</p>
+        <p><span>containers:</span> Kubernetes, Docker</p>
+        <p><span>iac:</span> Terraform</p>
+        <p><span>ci_cd:</span> GitHub Actions</p>
+        <p><span>languages:</span> Go, Bash, Python</p>
+      </div>
+    </div>
+  </div>
+</section>
 
     <section id="about" class="border-y border-slate-800 bg-slate-950/50">
       <div class="mx-auto max-w-6xl px-6 py-24">

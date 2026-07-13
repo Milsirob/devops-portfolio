@@ -18,7 +18,11 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    radial-gradient(circle at top right, rgba(8, 145, 178, 0.12), transparent 35%),
+    radial-gradient(
+      circle at top right,
+      rgba(8, 145, 178, 0.12),
+      transparent 35%
+    ),
     #050816;
 }
 
@@ -29,4 +33,173 @@ a {
 ::selection {
   background: #22d3ee;
   color: #020617;
+}
+
+/* Add the new hero styles below this line */
+
+.container {
+  width: min(1120px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.hero {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  padding: 72px 0;
+}
+
+.hero-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(380px, 0.9fr);
+  gap: 72px;
+  align-items: center;
+}
+
+.hero-copy {
+  min-width: 0;
+}
+
+.terminal-command {
+  margin: 0 0 24px;
+  color: #22d3ee;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1rem;
+}
+
+.hero h1 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: clamp(3.25rem, 5.3vw, 5.5rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.hero h1 span {
+  display: block;
+  color: #06c7e8;
+}
+
+.hero-description {
+  max-width: 680px;
+  margin: 32px 0 0;
+  color: #cbd5e1;
+  font-size: 1.15rem;
+  line-height: 1.75;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 36px;
+}
+
+.button {
+  display: inline-flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  color: #f8fafc;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.button-primary {
+  border-color: #06c7e8;
+  background: #06c7e8;
+  color: #02131b;
+}
+
+.button-secondary {
+  background: transparent;
+}
+
+.terminal-window {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #263550;
+  border-radius: 14px;
+  background: #020617;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+.terminal-header {
+  display: flex;
+  gap: 8px;
+  padding: 15px 18px;
+  border-bottom: 1px solid #263550;
+}
+
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.terminal-dot.red {
+  background: #ff5f57;
+}
+
+.terminal-dot.yellow {
+  background: #febc2e;
+}
+
+.terminal-dot.green {
+  background: #28c840;
+}
+
+.terminal-body {
+  padding: 24px 26px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+}
+
+.terminal-body p {
+  margin: 0 0 17px;
+  color: #a5b4cf;
+  line-height: 1.5;
+}
+
+.terminal-body p:first-child {
+  margin-bottom: 24px;
+  color: #e2e8f0;
+  font-weight: 700;
+}
+
+.terminal-body p:last-child {
+  margin-bottom: 0;
+}
+
+.terminal-body p span {
+  color: #67e8f9;
+}
+
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .terminal-window {
+    max-width: 680px;
+  }
+}
+
+@media (max-width: 560px) {
+  .container {
+    width: min(100% - 32px, 1120px);
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .button {
+    width: 100%;
+  }
 }
