@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const projects = [
+  {
+    title: "AWS Static Portfolio Platform",
+    description:
+      "A secure static website deployed through GitHub Actions to a private S3 bucket and served through CloudFront.",
+    technologies: [
+      "AWS",
+      "Terraform",
+      "S3",
+      "CloudFront",
+      "Route 53",
+      "GitHub Actions",
+      "OIDC",
+    ],
+    repository: "https://github.com/borislim2/devops-portfolio",
+  },
+  {
+    title: "Kubernetes Go Application Platform",
+    description:
+      "A containerized Go API deployed to Kubernetes using Helm, health probes, resource controls and automated delivery.",
+    technologies: [
+      "Go",
+      "Docker",
+      "Kubernetes",
+      "Helm",
+      "GitHub Actions",
+    ],
+    repository: "#",
+  },
+  {
+    title: "AWS Infrastructure with Terraform",
+    description:
+      "Reusable Terraform modules for networking, compute, identity and application delivery across multiple environments.",
+    technologies: ["Terraform", "AWS", "VPC", "IAM", "EKS"],
+    repository: "#",
+  },
+];
+---
+
+<BaseLayout
+  title="Projects | Boris Lim"
+  description="DevOps and infrastructure projects covering AWS, Kubernetes, Terraform and CI/CD."
+>
+  <Header />
+
+  <main class="mx-auto min-h-screen max-w-6xl px-6 py-20">
+    <p class="font-mono text-cyan-400">$ ls ./projects</p>
+
+    <h1 class="mt-5 text-4xl font-bold text-white md:text-6xl">
+      Engineering projects
+    </h1>
+
+    <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+      Practical infrastructure projects demonstrating architecture,
+      automation, security, delivery and observability.
+    </p>
+
+    <div class="mt-14 grid gap-7">
+      {
+        projects.map((project) => (
+          <article class="rounded-xl border border-slate-800 bg-slate-900/40 p-8">
+            <h2 class="text-2xl font-bold text-white">{project.title}</h2>
+
+            <p class="mt-4 max-w-4xl leading-7 text-slate-300">
+              {project.description}
+            </p>
+
+            <div class="mt-6 flex flex-wrap gap-2">
+              {
+                project.technologies.map((technology) => (
+                  <span class="rounded-md border border-slate-700 bg-slate-950 px-3 py-2 font-mono text-sm text-cyan-300">
+                    {technology}
+                  </span>
+                ))
+              }
+            </div>
+
+            <a
+              href={project.repository}
+              target={project.repository === "#" ? undefined : "_blank"}
+              rel="noreferrer"
+              class="mt-7 inline-block font-semibold text-cyan-400 hover:text-cyan-300"
+            >
+              View repository →
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
