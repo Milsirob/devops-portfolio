@@ -3,11 +3,32 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
+/*
+ * BASE_URL makes local files work both:
+ * - locally: http://localhost:4321/
+ * - on GitHub Pages: /devops-portfolio/
+ */
+const baseUrl = import.meta.env.BASE_URL;
+const resumeUrl = `${baseUrl}resume.pdf`;
+
+const githubUrl = "https://github.com/milsirob";
+const portfolioRepositoryUrl =
+  "https://github.com/borislim2/devops-portfolio";
+
 const skills = {
-  Cloud: ["AWS", "EC2", "S3", "IAM", "VPC", "Route 53", "CloudFront", "EKS"],
+  Cloud: [
+    "AWS",
+    "EC2",
+    "S3",
+    "IAM",
+    "VPC",
+    "Route 53",
+    "CloudFront",
+    "EKS",
+  ],
   Containers: ["Docker", "Kubernetes", "Helm"],
   Infrastructure: ["Terraform", "CloudFormation", "Linux", "Bash"],
-  CICD: ["GitHub Actions", "Jenkins", "Git", "GitHub"],
+  "CI/CD": ["GitHub Actions", "CircleCI", "Jenkins", "Git", "GitHub"],
   Observability: ["CloudWatch", "Prometheus", "Grafana", "OpenSearch"],
   Development: ["Go", "Python", "YAML", "REST APIs"],
 };
@@ -17,12 +38,28 @@ const experience = [
     company: "Axios",
     role: "Infrastructure / DevOps Engineer",
     period: "Aug 2022 – Present",
-    technologies: "AWS, Kubernetes, Terraform, GitHub Actions, Go",
+    technologies:
+      "AWS, Kubernetes, Terraform, GitHub Actions, CircleCI, Go",
     achievements: [
-      "Managed Terraform infrastructure across environments, reducing provisioning time.",
+      "Managed Terraform infrastructure across multiple environments, reducing provisioning time and improving consistency.",
       "Built scalable CI/CD pipelines with GitHub Actions and CircleCI for automated testing and deployments.",
-      "Implemented cross-region infrastructure replication from us-east-1 to us-west-2 for full disaster recovery.",
+      "Implemented cross-region infrastructure replication from us-east-1 to us-west-2 to support disaster recovery.",
     ],
+  },
+];
+
+const projects = [
+  {
+    title: "DevOps Portfolio Website",
+    description:
+      "A responsive infrastructure engineering portfolio built with Astro and Tailwind CSS, deployed through GitHub Actions.",
+    technologies: [
+      "Astro",
+      "Tailwind CSS",
+      "GitHub Actions",
+      "GitHub Pages",
+    ],
+    repositoryUrl: portfolioRepositoryUrl,
   },
 ];
 ---
@@ -31,68 +68,104 @@ const experience = [
   <Header />
 
   <main>
-    <section class="hero" id="about">
-  <div class="hero-shell">
-    <div class="hero-copy">
-      <p class="terminal-command">
-        Hello, I’m Boris Lim
-      </p>
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="hero-shell">
+        <div class="hero-copy">
+          <p class="terminal-command">Hello, I’m Boris Lim</p>
 
-      <h1>
-        Infrastructure and
-        <span>DevOps Engineer</span>
-      </h1>
+          <h1>
+            Infrastructure and
+            <span>DevOps Engineer</span>
+          </h1>
 
-      <p class="hero-description">
-        I design, automate, and operate cloud infrastructure using AWS,
-        Kubernetes, Terraform, GitHub Actions, and Go.
-      </p>
+          <p class="hero-description">
+            I design, automate, and operate cloud infrastructure using AWS,
+            Kubernetes, Terraform, GitHub Actions, and Go.
+          </p>
 
-      <div class="hero-actions">
-        <a class="button button-primary" href="#projects">
-          View projects
-        </a>
+          <div class="hero-actions">
+            <a
+              class="button button-primary"
+              href="#projects"
+              aria-label="Go to the projects section"
+            >
+              View projects
+            </a>
 
-        <a class="button button-secondary" href="/resume.pdf" download>
-          Download résumé
-        </a>
+            <a
+              class="button button-secondary"
+              href={resumeUrl}
+              download="Boris-Lim-Resume.pdf"
+              aria-label="Download Boris Lim's résumé"
+            >
+              Download résumé
+            </a>
 
-        <a
-          class="button button-secondary"
-          href="https://github.com/borislim2"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          GitHub
-        </a>
+            <a
+              class="button button-secondary"
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open Boris Lim's GitHub profile"
+            >
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="terminal-window" aria-label="Infrastructure profile">
+          <div class="terminal-header">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+          </div>
+
+          <div class="terminal-body">
+            <p class="terminal-line">
+              <span class="terminal-symbol">$</span>
+              <strong>cat profile.yaml</strong>
+            </p>
+
+            <p>
+              <span>role:</span>
+              Infrastructure / DevOps Engineer
+            </p>
+
+            <p>
+              <span>cloud:</span>
+              AWS
+            </p>
+
+            <p>
+              <span>containers:</span>
+              Kubernetes, Docker
+            </p>
+
+            <p>
+              <span>iac:</span>
+              Terraform
+            </p>
+
+            <p>
+              <span>ci_cd:</span>
+              GitHub Actions, CircleCI
+            </p>
+
+            <p>
+              <span>languages:</span>
+              Go, Bash, Python
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="terminal-window">
-      <div class="terminal-header">
-        <span class="terminal-dot red"></span>
-        <span class="terminal-dot yellow"></span>
-        <span class="terminal-dot green"></span>
-      </div>
-
-      <div class="terminal-body">
-        <p class="terminal-line">
-          <span class="terminal-symbol">$</span>
-          <strong>cat profile.yaml</strong>
-        </p>
-
-        <p><span>role:</span> Infrastructure / DevOps Engineer</p>
-        <p><span>cloud:</span> AWS</p>
-        <p><span>containers:</span> Kubernetes, Docker</p>
-        <p><span>iac:</span> Terraform</p>
-        <p><span>ci_cd:</span> GitHub Actions</p>
-        <p><span>languages:</span> Go, Bash, Python</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-    <section id="about" class="border-y border-slate-800 bg-slate-950/50">
+    <!-- About -->
+    <section
+      id="about"
+      class="border-y border-slate-800 bg-slate-950/50"
+    >
       <div class="mx-auto max-w-6xl px-6 py-24">
         <p class="font-mono text-cyan-400">01. About</p>
 
@@ -100,26 +173,29 @@ const experience = [
           Building reliable infrastructure through automation
         </h2>
 
-        <div class="mt-8 max-w-4xl space-y-5 text-lg leading-8 text-slate-300">
+        <div
+          class="mt-8 max-w-4xl space-y-5 text-lg leading-8 text-slate-300"
+        >
           <p>
-            I am an Infrastructure and DevOps Engineer with experience supporting
-            cloud infrastructure, Kubernetes environments, CI/CD systems and
-            source-control workflows.
+            I am an Infrastructure and DevOps Engineer with experience
+            supporting cloud infrastructure, Kubernetes environments, CI/CD
+            systems, and source-control workflows.
           </p>
 
           <p>
-            My work focuses on AWS, Kubernetes, Terraform, GitHub and production
-            applications written primarily in Go.
+            My work focuses on AWS, Kubernetes, Terraform, GitHub, and
+            production applications written primarily in Go.
           </p>
 
           <p>
-            Replace these paragraphs with your actual professional background,
-            years of experience, industries and major areas of responsibility.
+            I design scalable systems, streamline deployments, and improve
+            observability in fast-paced production environments.
           </p>
         </div>
       </div>
     </section>
 
+    <!-- Experience -->
     <section id="experience">
       <div class="mx-auto max-w-6xl px-6 py-24">
         <p class="font-mono text-cyan-400">02. Experience</p>
@@ -135,10 +211,15 @@ const experience = [
                 <div class="flex flex-col justify-between gap-4 md:flex-row">
                   <div>
                     <h3 class="text-2xl font-bold text-white">{job.role}</h3>
-                    <p class="mt-2 text-lg text-cyan-400">{job.company}</p>
+
+                    <p class="mt-2 text-lg text-cyan-400">
+                      {job.company}
+                    </p>
                   </div>
 
-                  <p class="font-mono text-sm text-slate-400">{job.period}</p>
+                  <p class="font-mono text-sm text-slate-400">
+                    {job.period}
+                  </p>
                 </div>
 
                 <p class="mt-5 font-mono text-sm text-slate-400">
@@ -149,7 +230,13 @@ const experience = [
                   {
                     job.achievements.map((achievement) => (
                       <li class="flex gap-3">
-                        <span class="text-cyan-400">▹</span>
+                        <span
+                          class="text-cyan-400"
+                          aria-hidden="true"
+                        >
+                          ▹
+                        </span>
+
                         <span>{achievement}</span>
                       </li>
                     ))
@@ -162,7 +249,11 @@ const experience = [
       </div>
     </section>
 
-    <section id="skills" class="border-y border-slate-800 bg-slate-950/50">
+    <!-- Skills -->
+    <section
+      id="skills"
+      class="border-y border-slate-800 bg-slate-950/50"
+    >
       <div class="mx-auto max-w-6xl px-6 py-24">
         <p class="font-mono text-cyan-400">03. Skills</p>
 
@@ -174,7 +265,9 @@ const experience = [
           {
             Object.entries(skills).map(([category, items]) => (
               <article class="rounded-xl border border-slate-800 bg-slate-900/40 p-6">
-                <h3 class="text-xl font-bold text-white">{category}</h3>
+                <h3 class="text-xl font-bold text-white">
+                  {category}
+                </h3>
 
                 <div class="mt-5 flex flex-wrap gap-2">
                   {
@@ -192,9 +285,75 @@ const experience = [
       </div>
     </section>
 
-    <section id="contact">
+    <!-- Projects -->
+    <section id="projects">
+      <div class="mx-auto max-w-6xl px-6 py-24">
+        <p class="font-mono text-cyan-400">04. Projects</p>
+
+        <h2 class="mt-4 text-3xl font-bold text-white md:text-4xl">
+          Infrastructure and automation projects
+        </h2>
+
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+          Selected projects demonstrating infrastructure automation,
+          deployment workflows, cloud engineering, and platform operations.
+        </p>
+
+        <div class="mt-12 grid gap-6 md:grid-cols-2">
+          {
+            projects.map((project) => (
+              <article class="flex flex-col rounded-xl border border-slate-800 bg-slate-900/40 p-7">
+                <h3 class="text-2xl font-bold text-white">
+                  {project.title}
+                </h3>
+
+                <p class="mt-4 flex-1 leading-7 text-slate-300">
+                  {project.description}
+                </p>
+
+                <div class="mt-6 flex flex-wrap gap-2">
+                  {
+                    project.technologies.map((technology) => (
+                      <span class="rounded-md border border-slate-700 bg-slate-950 px-3 py-2 font-mono text-sm text-slate-300">
+                        {technology}
+                      </span>
+                    ))
+                  }
+                </div>
+
+                <div class="mt-7 flex flex-wrap gap-3">
+                  <a
+                    href={project.repositoryUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="relative z-10 inline-flex min-h-11 items-center justify-center rounded-lg bg-cyan-400 px-5 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300"
+                    aria-label={`View ${project.title} source code on GitHub`}
+                  >
+                    View source
+                  </a>
+
+                  <a
+                    href={baseUrl}
+                    class="relative z-10 inline-flex min-h-11 items-center justify-center rounded-lg border border-slate-700 px-5 py-3 font-semibold text-white transition hover:border-cyan-400 hover:text-cyan-300"
+                    aria-label={`View ${project.title}`}
+                  >
+                    View live site
+                  </a>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section
+      id="contact"
+      class="border-t border-slate-800 bg-slate-950/50"
+    >
       <div class="mx-auto max-w-6xl px-6 py-24 text-center">
-        <p class="font-mono text-cyan-400">04. Contact</p>
+        <p class="font-mono text-cyan-400">05. Contact</p>
 
         <h2 class="mt-4 text-3xl font-bold text-white md:text-4xl">
           Let’s discuss infrastructure
@@ -202,18 +361,52 @@ const experience = [
 
         <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-300">
           I am open to Infrastructure Engineer, DevOps Engineer, Platform
-          Engineer and Cloud Engineer opportunities.
+          Engineer, and Cloud Engineer opportunities.
         </p>
 
-        <a
-          href="mailto:borislim2@gmail.com"
-          class="mt-9 inline-block rounded-lg bg-cyan-400 px-7 py-3 font-semibold text-slate-950 hover:bg-cyan-300"
-        >
-          Contact me
-        </a>
+        <div class="mt-9 flex flex-wrap justify-center gap-4">
+          <a
+            href="mailto:borislim2@gmail.com"
+            class="relative z-10 inline-flex min-h-12 items-center justify-center rounded-lg bg-cyan-400 px-7 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300"
+            aria-label="Send an email to Boris Lim"
+          >
+            Contact me
+          </a>
+
+          <a
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="relative z-10 inline-flex min-h-12 items-center justify-center rounded-lg border border-slate-700 px-7 py-3 font-semibold text-white transition hover:border-cyan-400 hover:text-cyan-300"
+            aria-label="Open Boris Lim's GitHub profile"
+          >
+            View GitHub
+          </a>
+        </div>
       </div>
     </section>
   </main>
 
   <Footer />
 </BaseLayout>
+
+<style is:global>
+  /*
+   * Prevent invisible decorative layers from blocking links.
+   */
+  .hero::before,
+  .hero::after {
+    pointer-events: none;
+  }
+
+  .hero-copy,
+  .hero-actions {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-actions a,
+  main a {
+    pointer-events: auto;
+  }
+</style>
