@@ -22,3 +22,31 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Node
+node_modules/
+dist/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfplan
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
