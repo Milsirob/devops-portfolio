@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -13,10 +14,16 @@ concurrency:
   group: production
   cancel-in-progress: true
 
+env:
+  AWS_REGION: us-east-1
+  WEBSITE_BUCKET: ${{ vars.WEBSITE_BUCKET }}
+  CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
+
 jobs:
   deploy:
     name: Deploy production website
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
@@ -28,6 +35,22 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Verify deployment variables
+        shell: bash
+        run: |
+          if [ -z "$WEBSITE_BUCKET" ]; then
+            echo "::error::GitHub variable WEBSITE_BUCKET is not configured."
+            exit 1
+          fi
+
+          if [ -z "$CLOUDFRONT_DISTRIBUTION_ID" ]; then
+            echo "::error::GitHub variable CLOUDFRONT_DISTRIBUTION_ID is not configured."
+            exit 1
+          fi
+
+          echo "Website bucket: $WEBSITE_BUCKET"
+          echo "CloudFront distribution: $CLOUDFRONT_DISTRIBUTION_ID"
+
       - name: Install dependencies
         run: npm ci
 
@@ -37,20 +60,25 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          role-to-assume: arn:aws:iam::544187354936:role/portfolio-deploy-role
           aws-region: us-east-1
-          role-session-name: portfolio-deployment
+          role-session-name: portfolio-${{ github.run_id }}
+          allowed-account-ids: "544187354936"
+          unset-current-credentials: true
+
+      - name: Verify AWS identity
+        run: aws sts get-caller-identity
 
       - name: Upload static assets
         run: |
-          aws s3 sync dist/ "s3://${{ vars.WEBSITE_BUCKET }}" \
+          aws s3 sync dist/ "s3://${WEBSITE_BUCKET}" \
             --delete \
             --exclude "*.html" \
             --cache-control "public,max-age=31536000,immutable"
 
       - name: Upload HTML files
         run: |
-          aws s3 sync dist/ "s3://${{ vars.WEBSITE_BUCKET }}" \
+          aws s3 sync dist/ "s3://${WEBSITE_BUCKET}" \
             --delete \
             --exclude "*" \
             --include "*.html" \
@@ -60,5 +88,5 @@ jobs:
       - name: Invalidate CloudFront cache
         run: |
           aws cloudfront create-invalidation \
-            --distribution-id "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" \
             --paths "/*"
