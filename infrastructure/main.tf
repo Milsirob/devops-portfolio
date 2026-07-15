@@ -247,7 +247,12 @@ resource "aws_iam_openid_connect_provider" "github" {
 
 data "aws_iam_policy_document" "github_assume_role" {
   statement {
+    sid    = "GitHubActionsAssumeRole"
     effect = "Allow"
+
+    actions = [
+      "sts:AssumeRoleWithWebIdentity"
+    ]
 
     principals {
       type = "Federated"
@@ -256,10 +261,6 @@ data "aws_iam_policy_document" "github_assume_role" {
         aws_iam_openid_connect_provider.github.arn
       ]
     }
-
-    actions = [
-      "sts:AssumeRoleWithWebIdentity"
-    ]
 
     condition {
       test     = "StringEquals"
@@ -275,15 +276,23 @@ data "aws_iam_policy_document" "github_assume_role" {
       variable = "token.actions.githubusercontent.com:sub"
 
       values = [
-        "repo:${var.github_owner}/${var.github_repository}:ref:refs/heads/main"
+        "repo:milsirob/devops-portfolio:ref:refs/heads/main"
       ]
     }
   }
 }
 
 resource "aws_iam_role" "github_deploy" {
-  name               = "portfolio-deploy-role"
+  name        = "portfolio-deploy-role"
+  description = "Allows GitHub Actions to deploy the portfolio website"
+
   assume_role_policy = data.aws_iam_policy_document.github_assume_role.json
+
+  tags = {
+    Name      = "portfolio-deploy-role"
+    ManagedBy = "Terraform"
+    Project   = "devops-portfolio"
+  }
 }
 
 data "aws_iam_policy_document" "github_deploy" {
@@ -292,7 +301,8 @@ data "aws_iam_policy_document" "github_deploy" {
     effect = "Allow"
 
     actions = [
-      "s3:ListBucket"
+      "s3:ListBucket",
+      "s3:GetBucketLocation"
     ]
 
     resources = [
@@ -305,9 +315,11 @@ data "aws_iam_policy_document" "github_deploy" {
     effect = "Allow"
 
     actions = [
-      "s3:DeleteObject",
       "s3:GetObject",
-      "s3:PutObject"
+      "s3:PutObject",
+      "s3:DeleteObject",
+      "s3:AbortMultipartUpload",
+      "s3:ListMultipartUploadParts"
     ]
 
     resources = [
