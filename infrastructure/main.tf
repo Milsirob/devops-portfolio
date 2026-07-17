@@ -276,7 +276,7 @@ data "aws_iam_policy_document" "github_assume_role" {
       variable = "token.actions.githubusercontent.com:sub"
 
       values = [
-        "repo:milsirob@12345678/devops-portfolio@987654321:ref:refs/heads/main"
+        "repo:${var.github_owner}/${var.github_repository}:ref:refs/heads/main"
       ]
     }
   }
