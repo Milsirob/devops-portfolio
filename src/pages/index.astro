@@ -2,6 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import Button from "../components/Button.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import TagList from "../components/TagList.astro";
 
 /*
  * BASE_URL makes local files work both:
@@ -13,7 +17,7 @@ const resumeUrl = `${baseUrl}resume.pdf`;
 
 const githubUrl = "https://github.com/milsirob";
 const portfolioRepositoryUrl =
-  "https://github.com/borislim2/devops-portfolio";
+  "https://github.com/milsirob/devops-portfolio";
 
 const skills = {
   Cloud: [
@@ -37,13 +41,13 @@ const experience = [
   {
     company: "Axios",
     role: "Infrastructure / DevOps Engineer",
-    period: "Aug 2022 – Present",
+    period: "August 2022 – Present",
     technologies:
       "AWS, Kubernetes, Terraform, GitHub Actions, CircleCI, Go",
     achievements: [
-      "Managed Terraform infrastructure across multiple environments, reducing provisioning time and improving consistency.",
-      "Built scalable CI/CD pipelines with GitHub Actions and CircleCI for automated testing and deployments.",
-      "Implemented cross-region infrastructure replication from us-east-1 to us-west-2 to support disaster recovery.",
+      "Managed reusable Terraform infrastructure across multiple production environments, standardizing provisioning and reducing configuration drift.",
+      "Built and maintained CI/CD pipelines with GitHub Actions and CircleCI to automate testing and application deployments.",
+      "Implemented cross-region infrastructure replication from us-east-1 to us-west-2 to strengthen disaster-recovery readiness.",
     ],
   },
 ];
@@ -60,6 +64,19 @@ const projects = [
       "GitHub Pages",
     ],
     repositoryUrl: portfolioRepositoryUrl,
+    liveUrl: baseUrl,
+  },
+  {
+    title: "Multi-Environment AWS Platform",
+    description:
+      "A reusable Terraform architecture for isolated cloud environments, consistent provisioning, and automated infrastructure validation.",
+    technologies: ["AWS", "Terraform", "GitHub Actions", "Bash"],
+  },
+  {
+    title: "Kubernetes Delivery Platform",
+    description:
+      "A container delivery workflow built around Kubernetes, Helm, automated CI checks, and production observability practices.",
+    technologies: ["Kubernetes", "Helm", "Docker", "Prometheus"],
   },
 ];
 ---
@@ -77,46 +94,36 @@ const projects = [
           </p>
 
           <h1>
-            Infrastructure and
-            <span>DevOps Engineer</span>
+            I build reliable
+            <span>cloud platforms.</span>
           </h1>
 
           <p class="hero-description">
-            I design, automate, and operate cloud infrastructure using AWS,
-            Kubernetes, Terraform, GitHub Actions, and Go.
+            Infrastructure and DevOps engineer specializing in AWS, Kubernetes,
+            Terraform, and CI/CD systems that make deployments safer and
+            operations more predictable.
           </p>
 
           <div class="hero-actions">
-            <a
-              class="button button-primary"
+            <Button
+              variant="primary"
               href="#projects"
-              aria-label="Go to the projects section"
+              ariaLabel="Go to the projects section"
             >
-              View projects
-            </a>
+              See my work
+            </Button>
 
-            <a
-              class="button button-secondary"
+            <Button
               href={resumeUrl}
               download="Boris-Lim-Resume.pdf"
-              aria-label="Download Boris Lim's résumé"
+              ariaLabel="Download Boris Lim's résumé"
             >
               Download résumé
-            </a>
-
-            <a
-              class="button button-secondary"
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Open Boris Lim's GitHub profile"
-            >
-              GitHub
-            </a>
+            </Button>
           </div>
         </div>
 
-        <div class="terminal-window" aria-label="Infrastructure profile">
+        <div class="terminal-window" aria-hidden="true">
           <div class="terminal-header">
             <span class="terminal-dot red"></span>
             <span class="terminal-dot yellow"></span>
@@ -169,30 +176,51 @@ const projects = [
       class="border-y border-slate-800 bg-slate-950/50"
     >
       <div class="mx-auto max-w-6xl px-6 py-24">
-        <p class="font-mono text-cyan-400">01. About</p>
+        <SectionHeading
+          number="01"
+          label="About"
+          title="Building reliable infrastructure through automation"
+        />
 
-        <h2 class="mt-4 text-3xl font-bold text-white md:text-4xl">
-          Building reliable infrastructure through automation
-        </h2>
+        <div class="mt-8 grid max-w-5xl gap-8 lg:grid-cols-[1.4fr_1fr]">
+          <div class="space-y-5 text-lg leading-8 text-slate-300">
+            <p>
+              I build and operate cloud infrastructure for production systems,
+              with a focus on repeatability, resilience, and developer
+              experience.
+            </p>
 
-        <div
-          class="mt-8 max-w-4xl space-y-5 text-lg leading-8 text-slate-300"
-        >
-          <p>
-            I am an Infrastructure and DevOps Engineer with experience
-            supporting cloud infrastructure, Kubernetes environments, CI/CD
-            systems, and source-control workflows.
-          </p>
+            <p>
+              At Axios, I manage AWS and Kubernetes infrastructure, automate
+              environments with Terraform, and maintain delivery workflows
+              using GitHub Actions and CircleCI.
+            </p>
 
-          <p>
-            My work focuses on AWS, Kubernetes, Terraform, GitHub, and
-            production applications written primarily in Go.
-          </p>
+            <p>
+              My recent work includes multi-environment infrastructure,
+              cross-region disaster-recovery capabilities, and deployment
+              automation for Go applications.
+            </p>
+          </div>
 
-          <p>
-            I design scalable systems, streamline deployments, and improve
-            observability in fast-paced production environments.
-          </p>
+          <dl class="grid grid-cols-2 gap-4">
+            <div class="rounded-xl border border-slate-800 bg-slate-900/40 p-5">
+              <dt class="text-sm text-slate-400">Primary cloud</dt>
+              <dd class="mt-2 text-xl font-bold text-white">AWS</dd>
+            </div>
+            <div class="rounded-xl border border-slate-800 bg-slate-900/40 p-5">
+              <dt class="text-sm text-slate-400">Infrastructure</dt>
+              <dd class="mt-2 text-xl font-bold text-white">Terraform</dd>
+            </div>
+            <div class="rounded-xl border border-slate-800 bg-slate-900/40 p-5">
+              <dt class="text-sm text-slate-400">Platform</dt>
+              <dd class="mt-2 text-xl font-bold text-white">Kubernetes</dd>
+            </div>
+            <div class="rounded-xl border border-slate-800 bg-slate-900/40 p-5">
+              <dt class="text-sm text-slate-400">Development</dt>
+              <dd class="mt-2 text-xl font-bold text-white">Go</dd>
+            </div>
+          </dl>
         </div>
       </div>
     </section>
@@ -200,11 +228,11 @@ const projects = [
     <!-- Experience -->
     <section id="experience">
       <div class="mx-auto max-w-6xl px-6 py-24">
-        <p class="font-mono text-cyan-400">02. Experience</p>
-
-        <h2 class="mt-4 text-3xl font-bold text-white md:text-4xl">
-          Professional experience
-        </h2>
+        <SectionHeading
+          number="02"
+          label="Experience"
+          title="Professional experience"
+        />
 
         <div class="mt-12 space-y-8">
           {
@@ -257,11 +285,11 @@ const projects = [
       class="border-y border-slate-800 bg-slate-950/50"
     >
       <div class="mx-auto max-w-6xl px-6 py-24">
-        <p class="font-mono text-cyan-400">03. Skills</p>
-
-        <h2 class="mt-4 text-3xl font-bold text-white md:text-4xl">
-          Technologies and platforms
-        </h2>
+        <SectionHeading
+          number="03"
+          label="Skills"
+          title="Technologies and platforms"
+        />
 
         <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {
@@ -271,14 +299,8 @@ const projects = [
                   {category}
                 </h3>
 
-                <div class="mt-5 flex flex-wrap gap-2">
-                  {
-                    items.map((item) => (
-                      <span class="rounded-md border border-slate-700 bg-slate-950 px-3 py-2 font-mono text-sm text-slate-300">
-                        {item}
-                      </span>
-                    ))
-                  }
+                <div class="mt-5">
+                  <TagList items={items} />
                 </div>
               </article>
             ))
@@ -290,59 +312,17 @@ const projects = [
     <!-- Projects -->
     <section id="projects">
       <div class="mx-auto max-w-6xl px-6 py-24">
-        <p class="font-mono text-cyan-400">04. Projects</p>
-
-        <h2 class="mt-4 text-3xl font-bold text-white md:text-4xl">
-          Infrastructure and automation projects
-        </h2>
-
-        <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-          Selected projects demonstrating infrastructure automation,
-          deployment workflows, cloud engineering, and platform operations.
-        </p>
+        <SectionHeading
+          number="04"
+          label="Projects"
+          title="Infrastructure and automation projects"
+          description="Selected work demonstrating infrastructure automation, deployment workflows, cloud engineering, and platform operations."
+        />
 
         <div class="mt-12 grid gap-6 md:grid-cols-2">
           {
             projects.map((project) => (
-              <article class="flex flex-col rounded-xl border border-slate-800 bg-slate-900/40 p-7">
-                <h3 class="text-2xl font-bold text-white">
-                  {project.title}
-                </h3>
-
-                <p class="mt-4 flex-1 leading-7 text-slate-300">
-                  {project.description}
-                </p>
-
-                <div class="mt-6 flex flex-wrap gap-2">
-                  {
-                    project.technologies.map((technology) => (
-                      <span class="rounded-md border border-slate-700 bg-slate-950 px-3 py-2 font-mono text-sm text-slate-300">
-                        {technology}
-                      </span>
-                    ))
-                  }
-                </div>
-
-                <div class="mt-7 flex flex-wrap gap-3">
-                  <a
-                    href={project.repositoryUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="relative z-10 inline-flex min-h-11 items-center justify-center rounded-lg bg-cyan-400 px-5 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300"
-                    aria-label={`View ${project.title} source code on GitHub`}
-                  >
-                    View source
-                  </a>
-
-                  <a
-                    href={baseUrl}
-                    class="relative z-10 inline-flex min-h-11 items-center justify-center rounded-lg border border-slate-700 px-5 py-3 font-semibold text-white transition hover:border-cyan-400 hover:text-cyan-300"
-                    aria-label={`View ${project.title}`}
-                  >
-                    View live site
-                  </a>
-                </div>
-              </article>
+              <ProjectCard {...project} />
             ))
           }
         </div>
@@ -355,16 +335,13 @@ const projects = [
       class="border-t border-slate-800 bg-slate-950/50"
     >
       <div class="mx-auto max-w-6xl px-6 py-24 text-center">
-        <p class="font-mono text-cyan-400">05. Contact</p>
-
-        <h2 class="mt-4 text-3xl font-bold text-white md:text-4xl">
-          Let’s discuss infrastructure
-        </h2>
-
-        <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-300">
-          I am open to Infrastructure Engineer, DevOps Engineer, Platform
-          Engineer, and Cloud Engineer opportunities.
-        </p>
+        <SectionHeading
+          number="05"
+          label="Contact"
+          title="Let’s discuss infrastructure"
+          description="I am open to Infrastructure Engineer, DevOps Engineer, Platform Engineer, and Cloud Engineer opportunities."
+          centered
+        />
 
         <div class="mt-9 flex flex-wrap justify-center gap-4">
           <a

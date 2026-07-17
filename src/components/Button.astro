@@ -1,0 +1,30 @@
+---
+interface Props {
+  href: string;
+  variant?: "primary" | "secondary";
+  target?: "_blank";
+  download?: string;
+  ariaLabel?: string;
+}
+
+const {
+  href,
+  variant = "secondary",
+  target,
+  download,
+  ariaLabel,
+} = Astro.props;
+
+const rel = target === "_blank" ? "noopener noreferrer" : undefined;
+---
+
+<a
+  class:list={["button", `button-${variant}`]}
+  {href}
+  {target}
+  {rel}
+  {download}
+  aria-label={ariaLabel}
+>
+  <slot />
+</a>

@@ -1,16 +1,47 @@
+---
+const baseUrl = import.meta.env.BASE_URL;
+const homeUrl = baseUrl;
+const links = [
+  { label: "About", href: `${baseUrl}#about` },
+  { label: "Experience", href: `${baseUrl}#experience` },
+  { label: "Skills", href: `${baseUrl}#skills` },
+  { label: "Projects", href: `${baseUrl}#projects` },
+  { label: "Resume", href: `${baseUrl}resume.pdf` },
+  { label: "Contact", href: `${baseUrl}#contact` },
+];
+---
+
 <header class="sticky top-0 z-50 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur">
   <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-    <a href="/" class="font-mono text-lg font-bold text-cyan-400">
+    <a href={homeUrl} class="font-mono text-lg font-bold text-cyan-400">
       boris@devops:~$
     </a>
 
     <div class="hidden items-center gap-6 text-sm text-slate-300 md:flex">
-      <a class="hover:text-cyan-400" href="/#about">About</a>
-      <a class="hover:text-cyan-400" href="/#experience">Experience</a>
-      <a class="hover:text-cyan-400" href="/#skills">Skills</a>
-      <a class="hover:text-cyan-400" href="/projects">Projects</a>
-      <a class="hover:text-cyan-400" href="/resume.pdf">Resume</a>
-      <a class="hover:text-cyan-400" href="/#contact">Contact</a>
+      {links.map((link) => <a class="transition hover:text-cyan-400" href={link.href}>{link.label}</a>)}
     </div>
+
+    <details class="group relative md:hidden">
+      <summary
+        class="cursor-pointer list-none rounded-lg border border-slate-700 px-4 py-2 text-sm font-semibold text-white transition hover:border-cyan-400 hover:text-cyan-300"
+      >
+        Menu
+      </summary>
+
+      <div
+        class="absolute right-0 mt-3 flex w-48 flex-col rounded-xl border border-slate-800 bg-slate-950 p-3 shadow-2xl"
+      >
+        {
+          links.map((link) => (
+            <a
+              class="rounded-md px-3 py-2 text-sm text-slate-300 transition hover:bg-slate-900 hover:text-cyan-400"
+              href={link.href}
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </div>
+    </details>
   </nav>
 </header>
