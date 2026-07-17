@@ -57,6 +57,23 @@ jobs:
       - name: Build website
         run: npm run build
 
+      - name: Show GitHub OIDC claims
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const token = await core.getIDToken("sts.amazonaws.com");
+            const payload = JSON.parse(
+              Buffer.from(token.split(".")[1], "base64url").toString("utf8")
+            );
+
+            core.info(`OIDC aud: ${payload.aud}`);
+            core.info(`OIDC sub: ${payload.sub}`);
+            core.info(`Repository: ${payload.repository}`);
+            core.info(`Repository ID: ${payload.repository_id}`);
+            core.info(`Repository owner: ${payload.repository_owner}`);
+            core.info(`Repository owner ID: ${payload.repository_owner_id}`);
+            core.info(`Git ref: ${payload.ref}`);  
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
