@@ -247,7 +247,7 @@ resource "aws_iam_openid_connect_provider" "github" {
 
 data "aws_iam_policy_document" "github_assume_role" {
   statement {
-    sid    = "GitHubActionsAssumeRole"
+    sid    = "GitHubActionsOIDC"
     effect = "Allow"
 
     actions = [
