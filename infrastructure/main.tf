@@ -272,11 +272,11 @@ data "aws_iam_policy_document" "github_assume_role" {
     }
 
     condition {
-      test     = "StringLike"
+      test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
 
       values = [
-        "repo:milsirob/devops-portfolio:*"
+        "repo:milsirob@12345678/devops-portfolio@987654321:ref:refs/heads/main"
       ]
     }
   }
