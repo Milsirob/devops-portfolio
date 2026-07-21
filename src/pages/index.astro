@@ -250,6 +250,94 @@ const projects = [
   </div>
 </section>
 
+<section class="workflow-section" aria-labelledby="workflow-title">
+  <div class="workflow-section__shell">
+    <div class="workflow-section__content">
+      <p class="workflow-section__eyebrow">
+        <span aria-hidden="true">$</span>
+        deployment workflow
+      </p>
+
+      <h2 id="workflow-title" class="workflow-section__title">
+        From code to production
+      </h2>
+
+      <p class="workflow-section__description">
+        I build repeatable infrastructure workflows that validate changes,
+        automate deployment, and keep production environments observable.
+      </p>
+
+      <div class="workflow-command" aria-live="polite">
+        <span class="workflow-command__prompt">$</span>
+        <span class="workflow-command__text" data-rotating-command>
+          terraform validate
+        </span>
+        <span class="workflow-command__cursor" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <div class="pipeline-card">
+      <div class="pipeline-card__header">
+        <div>
+          <p class="pipeline-card__label">production-deploy.yml</p>
+          <p class="pipeline-card__branch">main</p>
+        </div>
+
+        <div class="pipeline-status">
+          <span class="pipeline-status__dot"></span>
+          Pipeline healthy
+        </div>
+      </div>
+
+      <div class="pipeline-steps">
+        <article class="pipeline-step is-active" data-pipeline-step>
+          <div class="pipeline-step__number">01</div>
+
+          <div>
+            <h3>Validate</h3>
+            <p>Terraform formatting, validation, and security checks.</p>
+          </div>
+
+          <span class="pipeline-step__status">Running</span>
+        </article>
+
+        <article class="pipeline-step" data-pipeline-step>
+          <div class="pipeline-step__number">02</div>
+
+          <div>
+            <h3>Build</h3>
+            <p>Install dependencies and generate production assets.</p>
+          </div>
+
+          <span class="pipeline-step__status">Queued</span>
+        </article>
+
+        <article class="pipeline-step" data-pipeline-step>
+          <div class="pipeline-step__number">03</div>
+
+          <div>
+            <h3>Deploy</h3>
+            <p>Upload artifacts and invalidate the CloudFront cache.</p>
+          </div>
+
+          <span class="pipeline-step__status">Queued</span>
+        </article>
+
+        <article class="pipeline-step" data-pipeline-step>
+          <div class="pipeline-step__number">04</div>
+
+          <div>
+            <h3>Observe</h3>
+            <p>Confirm availability, logs, metrics, and service health.</p>
+          </div>
+
+          <span class="pipeline-step__status">Queued</span>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
     <!-- About -->
     <section
       id="about"
@@ -467,3 +555,83 @@ const projects = [
     pointer-events: auto;
   }
 </style>
+
+<script>
+  const commands = [
+    "terraform validate",
+    "terraform plan",
+    "npm run build",
+    "aws s3 sync dist/ s3://portfolio",
+    "aws cloudfront create-invalidation",
+    "kubectl rollout status deployment/app",
+  ];
+
+  function initializeWorkflowAnimation() {
+    const section =
+      document.querySelector<HTMLElement>(".workflow-section");
+
+    if (!section || section.dataset.initialized === "true") {
+      return;
+    }
+
+    section.dataset.initialized = "true";
+
+    const commandElement =
+      section.querySelector<HTMLElement>("[data-rotating-command]");
+
+    const steps = Array.from(
+      section.querySelectorAll<HTMLElement>("[data-pipeline-step]"),
+    );
+
+    let commandIndex = 0;
+    let stepIndex = 0;
+
+    window.setInterval(() => {
+      commandIndex = (commandIndex + 1) % commands.length;
+
+      if (commandElement) {
+        commandElement.textContent = commands[commandIndex];
+      }
+    }, 2600);
+
+    window.setInterval(() => {
+      steps.forEach((step, index) => {
+        const status =
+          step.querySelector<HTMLElement>(".pipeline-step__status");
+
+        const isActive = index === stepIndex;
+        const isComplete = index < stepIndex;
+
+        step.classList.toggle("is-active", isActive);
+        step.classList.toggle("is-complete", isComplete);
+
+        if (status) {
+          if (isActive) {
+            status.textContent = "Running";
+          } else if (isComplete) {
+            status.textContent = "Complete";
+          } else {
+            status.textContent = "Queued";
+          }
+        }
+      });
+
+      stepIndex = (stepIndex + 1) % steps.length;
+    }, 1800);
+  }
+
+  document.addEventListener(
+    "astro:page-load",
+    initializeWorkflowAnimation,
+  );
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initializeWorkflowAnimation,
+      { once: true },
+    );
+  } else {
+    initializeWorkflowAnimation();
+  }
+</script>
