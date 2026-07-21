@@ -463,21 +463,16 @@ section {
 .portfolio-hero {
   position: relative;
   isolation: isolate;
-  display: flex;
-  min-height: calc(100svh - 72px);
-  align-items: center;
   overflow: hidden;
-  padding: 88px 24px 110px;
+
+  padding: 88px 24px 100px;
+
   border-bottom: 1px solid rgba(51, 65, 85, 0.75);
+
   background:
     radial-gradient(
       circle at 78% 35%,
       rgba(6, 182, 212, 0.12),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 12% 80%,
-      rgba(14, 116, 144, 0.08),
       transparent 30%
     ),
     #030817;
@@ -511,16 +506,19 @@ section {
 
 .portfolio-hero__shell {
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(420px, 0.92fr);
+  grid-template-columns: minmax(0, 1.08fr) minmax(430px, 520px);
   align-items: center;
-  gap: clamp(56px, 7vw, 100px);
-  width: min(1220px, 100%);
+  gap: clamp(64px, 7vw, 110px);
+
+  width: min(1220px, calc(100% - 48px));
   margin-inline: auto;
 }
 
 .portfolio-hero__content {
+  grid-column: 1;
   min-width: 0;
 }
+
 
 .availability-badge {
   display: inline-flex;
@@ -749,18 +747,23 @@ section {
 /* Terminal */
 
 .profile-terminal {
-  position: relative;
-  width: 100%;
-  max-width: 530px;
+  grid-column: 2;
+  align-self: center;
   justify-self: end;
+
+  width: 100%;
+  max-width: 520px;
+
   overflow: hidden;
+
   border: 1px solid rgba(56, 189, 248, 0.38);
   border-radius: 16px;
+
   background: rgba(2, 6, 23, 0.93);
+
   box-shadow:
     0 35px 90px rgba(0, 0, 0, 0.48),
     0 0 55px rgba(6, 182, 212, 0.08);
-  backdrop-filter: blur(18px);
 }
 
 .profile-terminal::before {
@@ -886,18 +889,14 @@ section {
 /* Tablet */
 
 @media (max-width: 980px) {
-  .portfolio-hero {
-    min-height: auto;
-    padding-block: 82px 100px;
-  }
-
   .portfolio-hero__shell {
     grid-template-columns: 1fr;
-    gap: 58px;
+    gap: 52px;
   }
 
-  .portfolio-hero__content {
-    max-width: 760px;
+  .portfolio-hero__content,
+  .profile-terminal {
+    grid-column: 1;
   }
 
   .profile-terminal {
