@@ -84,89 +84,156 @@ const projects = [
 
   <main>
     <!-- Hero -->
-    <section class="hero" id="home">
-      <div class="hero-shell">
-        <div class="hero-copy">
-          <p class="terminal-command">
-            <span>$</span> whoami
-          </p>
+    <<section class="portfolio-hero" id="home">
+  <div class="portfolio-hero__grid" aria-hidden="true"></div>
 
-          <h1>
-            I build reliable
-            <span>cloud platforms.</span>
-          </h1>
+  <div class="portfolio-hero__shell">
+    <div class="portfolio-hero__content">
+      <div class="availability-badge">
+        <span class="availability-badge__dot"></span>
+        Open to Infrastructure and DevOps opportunities
+      </div>
 
-          <p class="hero-description">
-            Infrastructure and DevOps engineer specializing in AWS, Kubernetes,
-            Terraform, and CI/CD systems that make deployments safer and
-            operations more predictable.
-          </p>
+      <div class="identity-command">
+        <p class="identity-command__command">
+          <span>$</span> whoami
+        </p>
 
-          <div class="hero-actions">
-            <Button
-              variant="primary"
-              href="#projects"
-              ariaLabel="Go to the projects section"
-            >
-              See my work
-            </Button>
+        <p class="identity-command__output">Boris Lim</p>
+      </div>
 
-            <Button
-              href={resumeUrl}
-              download="Boris-Lim-Resume.pdf"
-              ariaLabel="Download Boris Lim's résumé"
-            >
-              Download résumé
-            </Button>
-          </div>
+      <h1 class="portfolio-hero__title">
+        I build reliable
+        <span>cloud platforms.</span>
+      </h1>
+
+      <p class="portfolio-hero__description">
+        I design and operate AWS and Kubernetes platforms, automate
+        infrastructure with Terraform, and build delivery pipelines that make
+        production releases safer and repeatable.
+      </p>
+
+      <div class="portfolio-hero__actions">
+        <a class="hero-button hero-button--primary" href="#projects">
+          See my work
+          <span aria-hidden="true">→</span>
+        </a>
+
+        <a
+          class="hero-button hero-button--secondary"
+          href={resumeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View résumé
+        </a>
+
+        <a
+          class="hero-button hero-button--secondary"
+          href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <div class="portfolio-hero__highlights">
+        <div class="hero-highlight">
+          <strong>Cloud</strong>
+          <span>AWS and Kubernetes</span>
         </div>
 
-        <div class="terminal-window" aria-hidden="true">
-          <div class="terminal-header">
-            <span class="terminal-dot red"></span>
-            <span class="terminal-dot yellow"></span>
-            <span class="terminal-dot green"></span>
+        <div class="hero-highlight">
+          <strong>Infrastructure</strong>
+          <span>Terraform and automation</span>
+        </div>
+
+        <div class="hero-highlight">
+          <strong>Delivery</strong>
+          <span>Reliable CI/CD pipelines</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-terminal">
+      <div class="profile-terminal__topbar">
+        <div class="profile-terminal__dots" aria-hidden="true">
+          <span class="profile-terminal__dot profile-terminal__dot--red"></span>
+          <span
+            class="profile-terminal__dot profile-terminal__dot--yellow"
+          ></span>
+          <span
+            class="profile-terminal__dot profile-terminal__dot--green"
+          ></span>
+        </div>
+
+        <span class="profile-terminal__filename">profile.yaml</span>
+      </div>
+
+      <div class="profile-terminal__body">
+        <p class="profile-terminal__command">
+          <span>$</span>
+          cat profile.yaml
+        </p>
+
+        <div class="profile-terminal__rows">
+          <div class="profile-terminal__row">
+            <span class="profile-terminal__key">name:</span>
+            <span class="profile-terminal__value">Boris Lim</span>
           </div>
 
-          <div class="terminal-body">
-            <p class="terminal-line">
-              <span class="terminal-symbol">$</span>
-              <strong>cat profile.yaml</strong>
-            </p>
-
-            <p>
-              <span>role:</span>
+          <div class="profile-terminal__row">
+            <span class="profile-terminal__key">role:</span>
+            <span class="profile-terminal__value">
               Infrastructure / DevOps Engineer
-            </p>
+            </span>
+          </div>
 
-            <p>
-              <span>cloud:</span>
-              AWS
-            </p>
+          <div class="profile-terminal__row">
+            <span class="profile-terminal__key">cloud:</span>
+            <span class="profile-terminal__value">AWS</span>
+          </div>
 
-            <p>
-              <span>containers:</span>
+          <div class="profile-terminal__row">
+            <span class="profile-terminal__key">containers:</span>
+            <span class="profile-terminal__value">
               Kubernetes, Docker
-            </p>
+            </span>
+          </div>
 
-            <p>
-              <span>iac:</span>
-              Terraform
-            </p>
+          <div class="profile-terminal__row">
+            <span class="profile-terminal__key">iac:</span>
+            <span class="profile-terminal__value">Terraform</span>
+          </div>
 
-            <p>
-              <span>ci_cd:</span>
+          <div class="profile-terminal__row">
+            <span class="profile-terminal__key">ci_cd:</span>
+            <span class="profile-terminal__value">
               GitHub Actions, CircleCI
-            </p>
+            </span>
+          </div>
 
-            <p>
-              <span>languages:</span>
+          <div class="profile-terminal__row">
+            <span class="profile-terminal__key">languages:</span>
+            <span class="profile-terminal__value">
               Go, Bash, Python
-            </p>
+            </span>
+          </div>
+
+          <div class="profile-terminal__row">
+            <span class="profile-terminal__key">status:</span>
+            <span class="profile-terminal__status">
+              available
+              <span class="profile-terminal__cursor" aria-hidden="true"></span>
+            </span>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
     <!-- About -->
     <section
