@@ -18,7 +18,13 @@ const links = [
     </a>
 
     <div class="hidden items-center gap-6 text-sm text-slate-300 md:flex">
-      {links.map((link) => <a class="transition hover:text-cyan-400" href={link.href}>{link.label}</a>)}
+      {
+        links.map((link) => (
+          <a class="transition hover:text-cyan-400" href={link.href}>
+            {link.label}
+          </a>
+        ))
+      }
     </div>
 
     <details class="group relative md:hidden">

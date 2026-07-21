@@ -7,11 +7,7 @@ import ProjectCard from "../components/ProjectCard.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import TagList from "../components/TagList.astro";
 
-/*
- * BASE_URL makes local files work both:
- * - locally: http://localhost:4321/
- * - on GitHub Pages: /devops-portfolio/
- */
+// BASE_URL keeps public asset links correct if the site moves to a subpath.
 const baseUrl = import.meta.env.BASE_URL;
 const resumeUrl = `${baseUrl}resume.pdf`;
 
@@ -28,7 +24,6 @@ const skills = {
     "VPC",
     "Route 53",
     "CloudFront",
-    "EKS",
   ],
   Containers: ["Docker", "Kubernetes", "Helm"],
   Infrastructure: ["Terraform", "CloudFormation", "Linux", "Bash"],
@@ -54,14 +49,17 @@ const experience = [
 
 const projects = [
   {
-    title: "DevOps Portfolio Website",
+    title: "AWS Static Portfolio Platform",
     description:
-      "A responsive infrastructure engineering portfolio built with Astro and Tailwind CSS, deployed through GitHub Actions.",
+      "A responsive Astro site deployed through GitHub Actions to S3 and delivered globally through CloudFront.",
     technologies: [
       "Astro",
       "Tailwind CSS",
+      "AWS",
+      "S3",
+      "CloudFront",
       "GitHub Actions",
-      "GitHub Pages",
+      "OIDC",
     ],
     repositoryUrl: portfolioRepositoryUrl,
     liveUrl: baseUrl,
@@ -344,23 +342,21 @@ const projects = [
         />
 
         <div class="mt-9 flex flex-wrap justify-center gap-4">
-          <a
+          <Button
             href="mailto:borislim2@gmail.com"
-            class="relative z-10 inline-flex min-h-12 items-center justify-center rounded-lg bg-cyan-400 px-7 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300"
-            aria-label="Send an email to Boris Lim"
+            variant="primary"
+            ariaLabel="Send an email to Boris Lim"
           >
             Contact me
-          </a>
+          </Button>
 
-          <a
+          <Button
             href={githubUrl}
             target="_blank"
-            rel="noopener noreferrer"
-            class="relative z-10 inline-flex min-h-12 items-center justify-center rounded-lg border border-slate-700 px-7 py-3 font-semibold text-white transition hover:border-cyan-400 hover:text-cyan-300"
-            aria-label="Open Boris Lim's GitHub profile"
+            ariaLabel="Open Boris Lim's GitHub profile"
           >
             View GitHub
-          </a>
+          </Button>
         </div>
       </div>
     </section>
